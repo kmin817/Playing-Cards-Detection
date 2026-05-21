@@ -49,9 +49,7 @@ class TemplateMatcher:
         result = cv2.warpAffine(image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR, borderValue=(0,0,0))
         return result
 
-    # -------------------------------------------------------------------------
-    # [핵심 수정] 180도 회전 검사 로직 추가
-    # -------------------------------------------------------------------------
+    # 180도 회전 검사 로직 추가
     def match_with_rotation_search(self, roi_img):
         _, roi_thresh = cv2.threshold(roi_img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
         
@@ -73,7 +71,7 @@ class TemplateMatcher:
 
         name, diff, mtype, angle, roi_out, tmpl_out = best_res
 
-        # [추가된 로직] 'A'와 같은 특정 문자는 반드시 구멍(Hole)이 있어야 함
+        # 'A'와 같은 특정 문자는 반드시 구멍(Hole)이 있어야 함
         if name in ['A', '0', '4', '6', '8', '9', 'Q', 'O', 'P', 'R', 'B', 'D']:
             # 현재 ROI에서 컨투어와 계층구조(Hierarchy) 다시 추출
             # 주의: 흰색이 글자라고 가정(fg 이미지). 배경이 검정.
@@ -144,7 +142,6 @@ class TemplateMatcher:
                     best_found_angle = angle
         
         return (best_name, best_diff, best_type, best_found_angle, best_roi_img, best_tmpl_img)
-    # -------------------------------------------------------------------------
 
 def deskew_roi(roi_img):
     h, w = roi_img.shape[:2]
