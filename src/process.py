@@ -197,9 +197,7 @@ def find_corners_set(edge_img, original, draw=True, debug=False,
     return four_corners_set
 
 
-# ---------------------------
 # 2-1) 스케일 보정용 헬퍼
-# ---------------------------
 def scale_corners(corners_set, scale):
     """
     다운스케일된 이미지에서 얻은 코너 좌표를
@@ -418,7 +416,7 @@ def detect_cards_hough(gray_det, edge_img, card_w, card_h,
     
     four_corners_set = []
     
-    # --- [핵심] 반복적 검출 루프 ---
+    # 반복적 검출 루프
     for i in range(max_cards):
         # 1. 살아있는 에지 좌표 추출
         y_idxs, x_idxs = np.where(current_edge_img > 0)
@@ -631,7 +629,7 @@ def filter_ght_candidates(gray_det, edge_img,
     # 혹시 모르니 idx 기준 오름차순 정렬 (0번이 1등)
     scored.sort(key=lambda x: x["idx"])
 
-    # ---  IoU 기반 NMS ---
+    # IoU 기반 NMS
     picked = []
     iou_thresh = 0.65 # 30% 이상 겹치면 중복으로 간주하고 제거
 
@@ -672,7 +670,6 @@ def estimate_card_size(edge_img,
                         aspect_ratio=1.45, 
                         debug=False):
     """
-    [최종 개선 버전]
     1. 노이즈 제거 (Cleaning)
     2. 모폴로지 닫기 (Closing) -> 문양으로 끊어진 선 연결
     3. 동적 파라미터 (Dynamic Hough) -> 해상도 맞춤형 Gap 설정
