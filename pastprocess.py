@@ -52,7 +52,7 @@ def get_thresh_canny(img):
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
     dial = cv2.dilate(edge, kernel, iterations=2)
     
-    # (선택사항) 내부를 채우지 않아도 findContours(RETR_EXTERNAL)은 
+    # 내부를 채우지 않아도 findContours(RETR_EXTERNAL)은 
     # 가장 바깥쪽 폐곡선을 잘 찾아내므로 이대로 리턴해도 됩니다.
     return dial
 
@@ -71,11 +71,11 @@ def find_corners_set(img, original, draw=True):
         # 면적 필터링 (카드가 아닌 작은 노이즈 무시)
         if area > 8000: 
             
-            # [1단계] 1차 시도: 정밀 검사
+            # 1차 시도: 정밀 검사
             epsilon = 0.02 * perimeter
             approx = cv2.approxPolyDP(cnt, epsilon, closed=True)
 
-            # [2단계] 실패 시 복구 로직: Convex Hull + 재시도
+            # 실패 시 복구 로직: Convex Hull + 재시도
             if len(approx) != 4:
                 hull = cv2.convexHull(cnt)
                 hull_perimeter = cv2.arcLength(hull, closed=True)
