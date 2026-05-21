@@ -44,7 +44,6 @@ def main():
 
     if DEBUG_MODE and results:
         print(f"\n[DEBUG] 박스가 그려진 이미지가 저장되었습니다: {results[0].save_dir}")
-        print("[DEBUG] 제출 전 반드시 코드 상단의 DEBUG_MODE = False 로 변경하세요!\n")
     
     # 결과가 없거나 비어있는 경우 처리
     if not results:
